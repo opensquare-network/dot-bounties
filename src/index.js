@@ -1,13 +1,16 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import { RecoilRoot } from 'recoil';
+import GlobalStyle from "./GlobalStyle";
+import 'semantic-ui-css/semantic.min.css';
 
 ReactDOM.render(
-  <React.StrictMode>
+  <RecoilRoot>
+    <GlobalStyle />
     <App />
-  </React.StrictMode>,
+  </RecoilRoot>,
   document.getElementById('root')
 );
 
