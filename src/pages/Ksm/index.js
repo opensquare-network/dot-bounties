@@ -19,6 +19,6 @@ export default function Home() {
   }, [dispatch])
 
   return (
-    <Bounties/>
+    <Bounties token='ksm'/>
   )
 }

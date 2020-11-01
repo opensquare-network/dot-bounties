@@ -5,16 +5,21 @@ import { useSelector } from "react-redux";
 import { ksmPrecisionSelector } from "../../store/reducers/ksmSlice";
 import Identity from "./Identity";
 import { getKsmApi } from "../../services/ksmApi";
+import { useHistory } from 'react-router'
+import { dotPrecisionSelector } from "../../store/reducers/dotSlice";
 
 const Wrapper = styled.section`
   background: #FFFFFF;
   padding: 16px 24px;
+  cursor: pointer;
 
   border: 1px solid #EEEEEE;
   box-sizing: border-box;
 
-  box-shadow: 0px 4px 24px rgba(29, 37, 60, 0.04);
   border-radius: 8px;
+  &:hover {
+    box-shadow: 0px 4px 24px rgba(29, 37, 60, 0.08);
+  }
   
   header {
     display: flex;
@@ -58,12 +63,14 @@ const Wrapper = styled.section`
   
 `
 
-export default function Bounty({ bounty }) {
-  const precision = useSelector(ksmPrecisionSelector)
-  console.log(bounty)
+export default function Bounty({ bounty, token }) {
+  const precision = useSelector(token === 'ksm' ? ksmPrecisionSelector : dotPrecisionSelector)
+  const history = useHistory()
 
   return (
-    <Wrapper>
+    <Wrapper onClick={() => {
+      history.push(`/ksm/${bounty.index}`)
+    }}>
       <header>
         <h3>{bounty.description}</h3>
         <span>{toPrecision(bounty.detail?.value, precision, false)} KSM</span>
@@ -83,7 +90,7 @@ export default function Bounty({ bounty }) {
         </li>
         <li>
           <label>Curator:</label>
-          <Identity api={getKsmApi()} addr={bounty.detail.status?.Active.curator}/>
+          <Identity api={getKsmApi()} addr={bounty.detail.status?.Active.curator} />
         </li>
       </ul>
     </Wrapper>

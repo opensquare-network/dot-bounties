@@ -1,3 +1,11 @@
+import Bounties from "../common/Bounties";
+import React from "react";
+import useFetchDot from "./useFetchDot";
+
 export default function Dot() {
-  return 'polkadot bounties'
+  useFetchDot()
+
+  return (
+    <Bounties token='dot'/>
+  )
 }

@@ -5,6 +5,8 @@ import styled from 'styled-components'
 import Ksm from "./pages/Ksm";
 import Dot from "./pages/Dot";
 import Footer from "./pages/Footer";
+import KsmDetail from "./pages/KsmDetail";
+import DotDetail from "./pages/Dot/Detail";
 
 const Content = styled.div`
   display: flex;
@@ -26,7 +28,9 @@ function App() {
       <Content>
         <Switch>
           <Route exact path="/ksm" component={Ksm} />
+          <Route exact path="/ksm/:index" component={KsmDetail} />
           <Route exact path="/dot" component={Dot} />
+          <Route exact path="/dot/:index" component={DotDetail} />
           <Redirect to="/ksm" />
         </Switch>
       </Content>

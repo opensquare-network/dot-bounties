@@ -5,6 +5,7 @@ import styled from 'styled-components'
 const Wrapper = styled.span`
   i {
     font-size: 12px;
+    color: #00C6B9;
   }
 `;
 

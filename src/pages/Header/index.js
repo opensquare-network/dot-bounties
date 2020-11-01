@@ -39,8 +39,15 @@ const Nav = styled.span`
 export default function Header() {
   return (
     <Wrapper>
-      <Nav active>
-        <NavLink exact activeClassName="active" to="/ksm">
+      <Nav>
+        <NavLink
+          exact
+          activeClassName="active"
+          to="/ksm"
+          isActive={(match, location) => {
+            return (location.pathname || '').startsWith('/ksm')
+          }}
+        >
           Kusama
         </NavLink>
       </Nav>
