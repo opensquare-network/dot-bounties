@@ -7,6 +7,7 @@ import 'semantic-ui-css/semantic.min.css';
 import { initKsmApi } from "./services/ksmApi";
 import { Provider } from 'react-redux'
 import store from './store'
+import { initDotApi } from "./services/dotApi";
 
 let nodeResolve;
 const nodePromise = new Promise(resolve => {
@@ -14,7 +15,7 @@ const nodePromise = new Promise(resolve => {
 });
 
 window.onload = async () => {
-  await initKsmApi();
+  await Promise.all([await initKsmApi(), await initDotApi()])
 
   nodeResolve()
 };

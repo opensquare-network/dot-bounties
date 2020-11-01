@@ -1,24 +1,22 @@
 import React from "react";
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  Redirect,
-} from 'react-router-dom'
+import { BrowserRouter as Router, Redirect, Route, Switch, } from 'react-router-dom'
 import Header from "./pages/Header";
 import styled from 'styled-components'
 import Ksm from "./pages/Ksm";
 import Dot from "./pages/Dot";
+import Footer from "./pages/Footer";
 
 const Content = styled.div`
   display: flex;
   flex: 1;
   overflow-y: auto;
   
-  padding-top: 16px;
-  margin: 0 auto;
-  min-width: 1280px;
-  max-width: 1440px;
+  & > div {
+    padding-top: 16px;
+    margin: 0 auto;
+    min-width: 1128px;
+    max-width: 1440px;
+  }
 `;
 
 function App() {
@@ -32,6 +30,7 @@ function App() {
           <Redirect to="/ksm" />
         </Switch>
       </Content>
+      <Footer/>
     </Router>
   );
 }

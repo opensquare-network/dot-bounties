@@ -7,15 +7,13 @@ export const initDotApi = async () => {
   dotApi = new ApiPromise({ provider: wsProvider, });
 
   await dotApi.isReady;
-
   return dotApi
 };
 
-export const getDotApi = async () => {
+export const getDotApi = () => {
   if (!dotApi) {
     throw new Error('Please init dotApi first');
   }
 
-  await dotApi.isReady;
   return dotApi;
 };

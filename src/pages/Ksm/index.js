@@ -1,11 +1,12 @@
 import { useDispatch } from "react-redux";
-import { useEffect } from 'react'
+import React, { useEffect } from 'react'
 import {
   fetchBounties,
   fetchKsmBountyCount,
   fetchKsmBountyDescriptions,
   fetchKsmProperties
 } from "../../store/reducers/ksmSlice";
+import Bounties from "../common/Bounties";
 
 export default function Home() {
   const dispatch = useDispatch()
@@ -17,5 +18,7 @@ export default function Home() {
     dispatch(fetchKsmBountyDescriptions())
   }, [dispatch])
 
-  return 'home page'
+  return (
+    <Bounties/>
+  )
 }

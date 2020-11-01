@@ -1,15 +1,19 @@
-import { createSlice } from '@reduxjs/toolkit'
+import { createSelector, createSlice } from '@reduxjs/toolkit'
 import { getKsmApi } from "../../services/ksmApi";
 
 const ksmSlice = createSlice({
   name: 'ksm',
   initialState: {
+    headNumber: 0,
     bountyCount: 0,
     bounties: [],
     properties: {},
     descriptions: []
   },
   reducers: {
+    setHeadNumber(state, { payload }) {
+      state.headNumber = payload
+    },
     setBountyCount(state, { payload: count }) {
       state.bountyCount = count
     },
@@ -25,7 +29,13 @@ const ksmSlice = createSlice({
   }
 });
 
-export const { setBountyCount, setKsmBounties, setKsmProperties, setKsmBountyDescriptions } = ksmSlice.actions
+export const {
+  setHeadNumber: setKsmHeadNumber,
+  setBountyCount,
+  setKsmBounties,
+  setKsmProperties,
+  setKsmBountyDescriptions
+} = ksmSlice.actions
 
 export const fetchKsmBountyCount = () => async dispatch => {
   const api = getKsmApi()
@@ -64,5 +74,27 @@ export const fetchKsmBountyDescriptions = () => async dispatch => {
   })
   dispatch(setKsmBountyDescriptions(descriptions))
 }
+
+export const ksmBountiesSelector = state => state.ksm.bounties
+export const ksmDescriptionsSelector = state => state.ksm.descriptions
+export const ksmHeadNumberSelector = state => state.ksm.headNumber
+
+export const ksmNormalizedBountiesSelector = createSelector(
+  ksmBountiesSelector,
+  ksmDescriptionsSelector,
+  (bounties, descriptions) => {
+    return bounties.map(bounty => {
+      const status = Object.keys(bounty.detail.status)[0]
+
+      const desc = descriptions.find(desc => desc.index === bounty.index)
+      return {
+        ...bounty,
+        description: desc?.description || '',
+        status
+      }
+    })
+  })
+
+export const ksmPrecisionSelector = state => state.ksm.properties?.tokenDecimals || 12
 
 export default ksmSlice.reducer
