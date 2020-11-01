@@ -1,9 +1,9 @@
 import styled from 'styled-components'
 import React from "react";
+import { NavLink } from 'react-router-dom'
 
 const Wrapper = styled.header`
   display: flex;
-  justify-content: space-between;
   align-items: center;
   padding: 0 16px;
   background: #3f3f3f;
@@ -12,10 +12,43 @@ const Wrapper = styled.header`
   color: #ffffff;
 `;
 
+const Nav = styled.span`
+  display: inline-flex;
+  height: 100%;
+  margin-left: 23px;
+  
+  & > a {
+    display: inline-flex;
+    height: 100%;
+    align-items: center;
+    opacity: 0.5;
+    color: #fff;
+    text-decoration: none;
+
+    &.active {
+      opacity: 0.8;
+    }
+  }
+  
+  font-size: 15px;
+  line-height: 22px;
+  font-weight: 600;
+  cursor: pointer;
+`
+
 export default function Header() {
   return (
     <Wrapper>
-      This is the header
+      <Nav active>
+        <NavLink exact activeClassName="active" to="/ksm">
+          Kusama
+        </NavLink>
+      </Nav>
+      <Nav>
+        <NavLink exact activeClassName="active" to="/dot">
+          Polkadot
+        </NavLink>
+      </Nav>
     </Wrapper>
   )
 }

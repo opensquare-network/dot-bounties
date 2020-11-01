@@ -2,17 +2,39 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import { RecoilRoot } from 'recoil';
 import GlobalStyle from "./GlobalStyle";
 import 'semantic-ui-css/semantic.min.css';
+import { initKsmApi } from "./services/ksmApi";
+import { Provider } from 'react-redux'
+import store from './store'
 
-ReactDOM.render(
-  <RecoilRoot>
-    <GlobalStyle />
-    <App />
-  </RecoilRoot>,
-  document.getElementById('root')
-);
+let nodeResolve;
+const nodePromise = new Promise(resolve => {
+  nodeResolve = resolve
+});
+
+window.onload = async () => {
+  await initKsmApi();
+
+  nodeResolve()
+};
+
+const render = () => {
+  const loading = window.document.getElementById('loading');
+  loading.parentNode.removeChild(loading);
+
+  ReactDOM.render(
+    <React.StrictMode>
+      <GlobalStyle />
+      <Provider store={store}>
+        <App />
+      </Provider>
+    </React.StrictMode>,
+    document.getElementById('root')
+  );
+};
+
+nodePromise.then(render);
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))

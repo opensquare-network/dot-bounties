@@ -7,7 +7,8 @@ import {
 } from 'react-router-dom'
 import Header from "./pages/Header";
 import styled from 'styled-components'
-import Home from "./pages/Home";
+import Ksm from "./pages/Ksm";
+import Dot from "./pages/Dot";
 
 const Content = styled.div`
   display: flex;
@@ -26,8 +27,9 @@ function App() {
       <Header />
       <Content>
         <Switch>
-          <Route exact path="/" component={Home} />
-          <Redirect to="/" />
+          <Route exact path="/ksm" component={Ksm} />
+          <Route exact path="/dot" component={Dot} />
+          <Redirect to="/ksm" />
         </Switch>
       </Content>
     </Router>
