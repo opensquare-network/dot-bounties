@@ -5,6 +5,7 @@ import React from "react";
 import Bounty from "../Bounty";
 import { dotNormalizedBountiesSelector } from "../../../store/reducers/dotSlice";
 import { Icon } from "semantic-ui-react";
+import Summary from "../Summary";
 
 const Wrapper = styled.div`
   display: flex;
@@ -28,7 +29,7 @@ const EmptyWrapper = styled.div`
 
 `
 
-export default function Bounties({token}) {
+export default function Bounties({ token }) {
   const bounties = useSelector(token === 'ksm' ? ksmNormalizedBountiesSelector : dotNormalizedBountiesSelector)
 
   if (bounties.length <= 0) {
@@ -42,6 +43,7 @@ export default function Bounties({token}) {
 
   return (
     <Wrapper>
+      <Summary bounties={bounties} token={token} />
       <ul>
         {
           bounties.map((bounty, idx) => {

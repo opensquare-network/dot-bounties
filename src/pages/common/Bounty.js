@@ -39,6 +39,10 @@ const Wrapper = styled.section`
       font-size: 18px;
       line-height: 32px;
       color: #00C6B9;
+      
+      display: inline-flex;
+      min-width: 150px;
+      justify-content: flex-end;
     }
   }
   
