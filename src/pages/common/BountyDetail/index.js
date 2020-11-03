@@ -7,9 +7,10 @@ import { useSelector } from "react-redux";
 import { ksmPrecisionSelector } from "../../../store/reducers/ksmSlice";
 import { dotPrecisionSelector } from "../../../store/reducers/dotSlice";
 import { toPrecision } from "../../../utils";
+import State from "./State";
 
 const ItemsWrapper = styled.div`
-  ul {
+  & > ul {
     background: #FFF;
     border: 1px solid #dbdbdb;
     font-size: 12px;
@@ -28,6 +29,9 @@ const ItemsWrapper = styled.div`
     }
   }
   
+  & > section {
+    margin-top: 16px;
+  }
 `;
 
 export default function BountyDetail({ bounty, token }) {
@@ -53,6 +57,10 @@ export default function BountyDetail({ bounty, token }) {
     {
       name: 'Proposer',
       value: <Identity api={api} addr={bounty.detail.proposer} token={token} />
+    },
+    {
+      name: 'Bond',
+      value: `${toPrecision(bounty.detail?.bond, precision, false)} ${tokenName}`
     },
     {
       name: 'Value',
@@ -109,7 +117,7 @@ export default function BountyDetail({ bounty, token }) {
         {
           items.map((item, idx) => {
             return (
-              <li>
+              <li key={idx}>
                 <div className="name">{item.name}</div>
                 <div className="value">{item.value}</div>
               </li>
@@ -117,6 +125,7 @@ export default function BountyDetail({ bounty, token }) {
           })
         }
       </ul>
+      <State bounty={bounty} token={token} />
     </ItemsWrapper>
   )
 }
