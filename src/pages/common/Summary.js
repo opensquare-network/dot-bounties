@@ -13,14 +13,15 @@ const ItemWrapper = styled.div`
   
   label {
     color: rgba(0, 0, 0, 0.6);
+    font-size: 13px;
   }
   
   p {
     margin-top: 7px;
-    font-size: 24px;
+    font-size: 18px;
     
     span {
-      font-size: 18px;
+      font-size: 14px;
       color: rgba(0, 0, 0, 0.6);
       margin-left: 5px;
     }

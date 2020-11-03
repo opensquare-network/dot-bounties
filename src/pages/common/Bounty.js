@@ -7,11 +7,11 @@ import Identity from "./Identity";
 import { getKsmApi } from "../../services/ksmApi";
 import { useHistory } from 'react-router'
 import { dotPrecisionSelector } from "../../store/reducers/dotSlice";
+import { getDotApi } from "../../services/dotApi";
 
 const Wrapper = styled.section`
   background: #FFFFFF;
   padding: 16px 24px;
-  cursor: pointer;
 
   border: 1px solid #EEEEEE;
   box-sizing: border-box;
@@ -27,16 +27,19 @@ const Wrapper = styled.section`
     
     h3 {
       font-weight: 500;
-      font-size: 18px;
+      font-size: 16px;
       line-height: 32px;
       margin-bottom: 10px;
-
+      cursor: pointer;
       color: #1D253C;
+      &:hover {
+        color: #00C6B9;
+      }
     }
     
     span {
       font-weight: bold;
-      font-size: 18px;
+      font-size: 16px;
       line-height: 32px;
       color: #00C6B9;
       
@@ -48,12 +51,13 @@ const Wrapper = styled.section`
   
   ul {
     display: flex;
+    flex-wrap: wrap;
     li {
-      &:not(:first-of-type) {
-        margin-left: 33px;
+      font-size: 12px;
+      &:not(:last-of-type) {
+        margin-right: 33px;
       }
     
-      font-size: 14px;
       line-height: 24px;
       label {
         color: rgba(29, 37, 60, 0.24);
@@ -68,15 +72,17 @@ const Wrapper = styled.section`
 `
 
 export default function Bounty({ bounty, token }) {
-  const precision = useSelector(token === 'ksm' ? ksmPrecisionSelector : dotPrecisionSelector)
+  const isKsm = token === 'ksm'
+  const precision = useSelector(isKsm ? ksmPrecisionSelector : dotPrecisionSelector)
+  const api = isKsm ? getKsmApi() : getDotApi
   const history = useHistory()
 
   return (
-    <Wrapper onClick={() => {
-      history.push(`/ksm/${bounty.index}`)
-    }}>
+    <Wrapper>
       <header>
-        <h3>{bounty.description}</h3>
+        <h3 onClick={() => {
+          history.push(`/ksm/${bounty.index}`)
+        }}>{bounty.description}</h3>
         <span>{toPrecision(bounty.detail?.value, precision, false)} KSM</span>
       </header>
       <ul>
@@ -94,7 +100,7 @@ export default function Bounty({ bounty, token }) {
         </li>
         <li>
           <label>Curator:</label>
-          <Identity api={getKsmApi()} addr={bounty.detail.status?.Active.curator} />
+          <Identity api={api} addr={bounty.detail.status?.Active.curator} token={token} />
         </li>
       </ul>
     </Wrapper>

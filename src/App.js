@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { BrowserRouter as Router, Redirect, Route, Switch, } from 'react-router-dom'
 import Header from "./pages/Header";
 import styled from 'styled-components'
@@ -7,6 +7,14 @@ import Dot from "./pages/Dot";
 import Footer from "./pages/Footer";
 import KsmDetail from "./pages/KsmDetail";
 import DotDetail from "./pages/Dot/Detail";
+import { useDispatch } from "react-redux";
+import {
+  fetchBounties,
+  fetchKsmBountyCount,
+  fetchKsmBountyDescriptions,
+  fetchKsmProperties
+} from "./store/reducers/ksmSlice";
+import useFetchDot from "./pages/Dot/useFetchDot";
 
 const Content = styled.div`
   display: flex;
@@ -31,6 +39,17 @@ const Content = styled.div`
 `;
 
 function App() {
+  const dispatch = useDispatch()
+
+  useEffect(() => {
+    dispatch(fetchKsmBountyCount())
+    dispatch(fetchBounties())
+    dispatch(fetchKsmProperties())
+    dispatch(fetchKsmBountyDescriptions())
+  }, [dispatch])
+
+  useFetchDot()
+
   return (
     <Router>
       <Header />
