@@ -41,84 +41,80 @@ export default function BountyDetail({ bounty, token }) {
   const showBeneficiary = ['PendingPayout'].includes(bounty.status)
   const showUnlockAt = ['PendingPayout'].includes(bounty.status)
 
+  const items = [
+    {
+      name: 'Bounty Index',
+      value: bounty.index
+    },
+    {
+      name: 'Description',
+      value: bounty.description
+    },
+    {
+      name: 'Proposer',
+      value: <Identity api={api} addr={bounty.detail.proposer} token={token} />
+    },
+    {
+      name: 'Value',
+      value: `${toPrecision(bounty.detail?.value, precision, false)} ${tokenName}`
+    },
+    {
+      name: 'Fee',
+      value: `${toPrecision(bounty.detail?.fee, precision, false)} ${tokenName}`
+    },
+    {
+      name: 'Curator Deposit',
+      value: `${toPrecision(bounty.detail?.curatorDeposit, precision, false)} ${tokenName}`
+    },
+    {
+      name: 'Status',
+      value: bounty.status
+    },
+  ]
+
+  if (showCurator) {
+    items.push({
+      name: 'Curator',
+      value: <Identity
+        api={api}
+        token={token}
+        addr={Object.values(bounty.detail?.status)[0].curator} />
+    })
+  }
+
+  if (showUpdateDue) {
+    items.push({
+      name: 'Update Due',
+      value: Object.values(bounty.detail?.status)[0].updateDue
+    })
+  }
+
+  if (showBeneficiary) {
+    items.push({
+      name: 'Beneficiary',
+      value: Object.values(bounty.detail?.status)[0].beneficiary
+    })
+  }
+
+  if (showUnlockAt) {
+    items.push({
+      name: 'Unlock At',
+      value: Object.values(bounty.detail?.status)[0].unlockAt
+    })
+  }
+
   return (
     <ItemsWrapper>
       <ul>
-        <li>
-          <div className="name">Bounty Index</div>
-          <div className="value">{bounty.index}</div>
-        </li>
-        <li>
-          <div className="name">Description</div>
-          <div className="value">{bounty.description}</div>
-        </li>
-        <li>
-          <div className="name">Proposer</div>
-          <div className="value">
-            <Identity api={api} addr={bounty.detail.proposer} token={token} />
-          </div>
-        </li>
-        <li>
-          <div className="name">Value</div>
-          <div className="value">{toPrecision(bounty.detail?.value, precision, false)} {tokenName}</div>
-        </li>
-        <li>
-          <div className="name">Fee</div>
-          <div className="value">{toPrecision(bounty.detail?.fee, precision, false)} {tokenName}</div>
-        </li>
-        <li>
-          <div className="name">Curator Deposit</div>
-          <div className="value">
-            {toPrecision(bounty.detail?.curatorDeposit, precision, false)} {tokenName}
-          </div>
-        </li>
-        <li>
-          <div className="name">Status</div>
-          <div className="value">{bounty.status}</div>
-        </li>
         {
-          showCurator ? (
-            <li>
-              <div className="name">Curator</div>
-              <div className="value">
-                <Identity
-                  api={api}
-                  token={token}
-                  addr={Object.values(bounty.detail?.status)[0].curator} />
-              </div>
-            </li>
-          ) : null
-        }
-        {
-          showUpdateDue ? (
-            <li>
-              <div className="name">Update Due</div>
-              <div className="value">{Object.values(bounty.detail?.status)[0].updateDue}</div>
-            </li>
-          ) : null
-        }
-        {
-          showBeneficiary ? (
-            <li>
-              <div className="name">Beneficiary</div>
-              <div className="value">
-                <Identity
-                  token={token}
-                  api={api}
-                  addr={Object.values(bounty.detail?.status)[0].beneficiary} />
-              </div>
-            </li>
-          ) : null
-        }
-        {
-          showUnlockAt ? (
-            <li>
-              <div className="name">Unlock At</div>
-              <div className="value">
-                {Object.values(bounty.detail?.status)[0].unlockAt}
-              </div>
-            </li>
-          ) : null
+          items.map((item, idx) => {
+            return (
+              <li>
+                <div className="name">{item.name}</div>
+                <div className="value">{item.value}</div>
+              </li>
+            )
+          })
         }
       </ul>
     </ItemsWrapper>
