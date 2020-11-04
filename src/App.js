@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { BrowserRouter as Router, Redirect, Route, Switch, } from 'react-router-dom'
+import { HashRouter as Router, Redirect, Route, Switch, } from 'react-router-dom'
 import Header from "./pages/Header";
 import styled from 'styled-components'
 import Ksm from "./pages/Ksm";
