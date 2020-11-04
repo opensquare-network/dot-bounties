@@ -51,7 +51,7 @@ function App() {
   useFetchDot()
 
   return (
-    <Router>
+    <Router basename={process.env.PUBLIC_URL}>
       <Header />
       <Content>
         <Switch>
@@ -62,7 +62,7 @@ function App() {
           <Redirect to="/" />
         </Switch>
       </Content>
-      <Footer/>
+      <Footer />
     </Router>
   );
 }
