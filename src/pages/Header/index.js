@@ -43,9 +43,9 @@ export default function Header() {
         <NavLink
           exact
           activeClassName="active"
-          to="/ksm"
+          to="/"
           isActive={(match, location) => {
-            return (location.pathname || '').startsWith('/ksm')
+            return location.pathname === '/' || (location.pathname || '').startsWith('/ksm')
           }}
         >
           Kusama
