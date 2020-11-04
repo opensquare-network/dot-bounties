@@ -55,11 +55,11 @@ function App() {
       <Header />
       <Content>
         <Switch>
-          <Route exact path="/ksm" component={Ksm} />
+          <Route exact path="/" component={Ksm} />
           <Route exact path="/ksm/:index" component={KsmDetail} />
           <Route exact path="/dot" component={Dot} />
           <Route exact path="/dot/:index" component={DotDetail} />
-          <Redirect to="/ksm" />
+          <Redirect to="/" />
         </Switch>
       </Content>
       <Footer/>
