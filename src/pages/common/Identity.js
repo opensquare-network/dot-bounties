@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Icon } from 'semantic-ui-react'
 import styled from 'styled-components'
+import { useIsMounted } from "../../hooks/useIsMounted";
 
 const Wrapper = styled.span`
   i {
@@ -18,10 +19,15 @@ const Wrapper = styled.span`
 
 export default function Identity({ api, addr, token = 'ksm' }) {
   const [identity, setIdentity] = useState(null)
+  const mounted = useIsMounted()
 
   useEffect(() => {
-    api.query.identity.identityOf(addr).then(identity => setIdentity(identity.toHuman()))
-  }, [api, addr])
+    api.query.identity.identityOf(addr).then(identity => {
+      if (mounted.current) {
+        setIdentity(identity.toHuman())
+      }
+    })
+  }, [api, addr, mounted])
 
   const shortAddr = addr.substring(0, 5) + '...' + addr.substring(addr.length - 5)
   const isKsm = token === 'ksm'
