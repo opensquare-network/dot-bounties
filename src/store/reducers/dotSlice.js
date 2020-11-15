@@ -9,7 +9,8 @@ const dotSlice = createSlice({
     bountyCount: 0,
     bounties: [],
     properties: {},
-    descriptions: []
+    descriptions: [],
+    dotLoading: false
   },
   reducers: {
     setHeadNumber(state, { payload }) {
@@ -26,6 +27,9 @@ const dotSlice = createSlice({
     },
     setBountyDescriptions(state, { payload }) {
       state.descriptions = payload
+    },
+    setDotLoading(state, { payload }) {
+      state.dotLoading = payload
     }
   }
 })
@@ -35,7 +39,8 @@ export const {
   setBountyCount: setDotBountyCount,
   setBounties: setDotBounties,
   setProperties: setDotProperties,
-  setBountyDescriptions: setDotBountyDescriptions
+  setBountyDescriptions: setDotBountyDescriptions,
+  setDotLoading
 } = dotSlice.actions
 
 export const fetchDotBountyCount = () => async dispatch => {
@@ -46,15 +51,22 @@ export const fetchDotBountyCount = () => async dispatch => {
 
 export const fetchDotBounties = () => async dispatch => {
   const api = getDotApi()
-  const entries = await api.query.treasury.bounties.entries()
+  dispatch(setDotLoading(true))
+  try {
+    const entries = await api.query.treasury.bounties.entries()
 
-  const bounties = entries.map(([key, value]) => {
-    const index = key.args[0].toNumber()
-    const detail = value.toJSON()
-    return { index, detail }
-  })
-  bounties.sort((a, b) => b.index - a.index)
-  dispatch(setKsmBounties(bounties))
+    const bounties = entries.map(([key, value]) => {
+      const index = key.args[0].toNumber()
+      const detail = value.toJSON()
+      return { index, detail }
+    })
+    bounties.sort((a, b) => b.index - a.index)
+    dispatch(setKsmBounties(bounties))
+
+    dispatch(setDotLoading(false))
+  } catch (e) {
+    dispatch(setDotLoading(false))
+  }
 }
 
 export const fetchDotProperties = () => async dispatch => {
@@ -80,6 +92,7 @@ export const dotHeadNumberSelector = state => state.dot.headNumber
 export const dotPrecisionSelector = state => state.dot.properties?.tokenDecimals || 12
 export const dotBountiesSelector = state => state.dot.bounties
 export const dotDescriptionsSelector = state => state.dot.descriptions
+export const dotLoadingSelector = state => state.dot.dotLoading
 
 export const dotNormalizedBountiesSelector = createSelector(
   dotBountiesSelector,

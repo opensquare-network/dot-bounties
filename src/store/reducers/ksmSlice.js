@@ -8,7 +8,8 @@ const ksmSlice = createSlice({
     bountyCount: 0,
     bounties: [],
     properties: {},
-    descriptions: []
+    descriptions: [],
+    ksmLoading: false
   },
   reducers: {
     setHeadNumber(state, { payload }) {
@@ -25,6 +26,9 @@ const ksmSlice = createSlice({
     },
     setKsmBountyDescriptions(state, { payload }) {
       state.descriptions = payload
+    },
+    setKsmLoading(state, { payload }) {
+      state.ksmLoading = payload
     }
   }
 });
@@ -34,7 +38,8 @@ export const {
   setBountyCount,
   setKsmBounties,
   setKsmProperties,
-  setKsmBountyDescriptions
+  setKsmBountyDescriptions,
+  setKsmLoading
 } = ksmSlice.actions
 
 export const fetchKsmBountyCount = () => async dispatch => {
@@ -45,15 +50,21 @@ export const fetchKsmBountyCount = () => async dispatch => {
 
 export const fetchBounties = () => async dispatch => {
   const api = getKsmApi()
-  const entries = await api.query.treasury.bounties.entries()
+  dispatch(setKsmLoading(true))
+  try {
+    const entries = await api.query.treasury.bounties.entries()
 
-  const bounties = entries.map(([key, value]) => {
-    const index = key.args[0].toNumber()
-    const detail = value.toJSON()
-    return { index, detail }
-  })
-  bounties.sort((a, b) => b.index - a.index)
-  dispatch(setKsmBounties(bounties))
+    const bounties = entries.map(([key, value]) => {
+      const index = key.args[0].toNumber()
+      const detail = value.toJSON()
+      return { index, detail }
+    })
+    bounties.sort((a, b) => b.index - a.index)
+    dispatch(setKsmBounties(bounties))
+    dispatch(setKsmLoading(false))
+  } catch (e) {
+    dispatch(setKsmLoading(false))
+  }
 }
 
 export const fetchKsmProperties = () => async dispatch => {
@@ -78,6 +89,7 @@ export const fetchKsmBountyDescriptions = () => async dispatch => {
 export const ksmBountiesSelector = state => state.ksm.bounties
 export const ksmDescriptionsSelector = state => state.ksm.descriptions
 export const ksmHeadNumberSelector = state => state.ksm.headNumber
+export const ksmLoadingSelector = state => state.ksm.ksmLoading
 
 export const ksmNormalizedBountiesSelector = createSelector(
   ksmBountiesSelector,
