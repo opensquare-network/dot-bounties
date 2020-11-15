@@ -4,10 +4,12 @@ import Identity from "../Identity";
 import { getKsmApi } from "../../../services/ksmApi";
 import { getDotApi } from "../../../services/dotApi";
 import { useSelector } from "react-redux";
-import { ksmPrecisionSelector } from "../../../store/reducers/ksmSlice";
+import { ksmHeadNumberSelector, ksmPrecisionSelector } from "../../../store/reducers/ksmSlice";
 import { dotPrecisionSelector } from "../../../store/reducers/dotSlice";
-import { toPrecision } from "../../../utils";
+import { getReadableTime, toPrecision } from "../../../utils";
 import State from "./State";
+import { Icon, Popup } from "semantic-ui-react";
+import { states } from "./constants";
 
 const ItemsWrapper = styled.div`
   & > ul {
@@ -21,6 +23,18 @@ const ItemsWrapper = styled.div`
       
       div.name {
         min-width: 200px;
+        
+        i {
+          margin-left: 2px;
+          cursor: pointer;
+        }
+      }
+      
+      div.value {
+        span.memo {
+          margin-left: 10px;
+          color: rgba(0, 0, 0, 0.6);
+        }
       }
       
       &:not(:last-of-type) {
@@ -45,6 +59,10 @@ export default function BountyDetail({ bounty, token }) {
   const showBeneficiary = ['PendingPayout'].includes(bounty.status)
   const showUnlockAt = ['PendingPayout'].includes(bounty.status)
 
+  const ksmHeadNumber = useSelector(ksmHeadNumberSelector)
+
+  const nowIndex = states.findIndex(s => s === bounty.status)
+
   const items = [
     {
       name: 'Bounty Index',
@@ -59,15 +77,46 @@ export default function BountyDetail({ bounty, token }) {
       value: <Identity api={api} addr={bounty.detail.proposer} token={token} />
     },
     {
-      name: 'Bond',
-      value: `${toPrecision(bounty.detail?.bond, precision, false)} ${tokenName}`
+      name: <span>
+        Bond
+        <Popup
+          content='A proposer have to bond some value to propose a bounty. The value will be returned when bounty approved.'
+          on='click'
+          trigger={<Icon name="question circle outline" />}
+        />
+      </span>,
+      value:
+        <span>
+        {toPrecision(bounty.detail?.bond, precision, false)} {tokenName}
+
+          {
+            nowIndex >= 1 &&
+            <span className="memo">(has returned to the proposer)</span>
+          }
+      </span>
     },
     {
-      name: 'Value',
+      name:
+        <span>
+          Value
+          <Popup
+            content='Will be payed to the curator when the bounty resolved.'
+            on='click'
+            trigger={<Icon name="question circle outline" />}
+          />
+        </span>,
       value: `${toPrecision(bounty.detail?.value, precision, false)} ${tokenName}`
     },
     {
-      name: 'Fee',
+      name:
+        <span>
+          Fee
+          <Popup
+            content='Will be payed to the curator when the bounty resolved.'
+            on='click'
+            trigger={<Icon name="question circle outline" />}
+          />
+        </span>,
       value: `${toPrecision(bounty.detail?.fee, precision, false)} ${tokenName}`
     },
     {
@@ -82,7 +131,15 @@ export default function BountyDetail({ bounty, token }) {
 
   if (showCurator) {
     items.push({
-      name: 'Curator',
+      name:
+        <span>
+          Curator
+          <Popup
+            content='Assigned by the council, curator will decide the bounty implementor and judge the work.'
+            on='click'
+            trigger={<Icon name="question circle outline" />}
+          />
+        </span>,
       value: <Identity
         api={api}
         token={token}
@@ -92,8 +149,23 @@ export default function BountyDetail({ bounty, token }) {
 
   if (showUpdateDue) {
     items.push({
-      name: 'Update Due',
-      value: Object.values(bounty.detail?.status)[0].updateDue
+      name:
+        <span>
+          Update Due
+          <Popup
+            content='After the update due block, the curator maybe unassigned.'
+            on='click'
+            trigger={<Icon name="question circle outline" />}
+          />
+        </span>,
+      value:
+        <span>
+          {Object.values(bounty.detail?.status)[0].updateDue}
+
+          <span className="memo">
+            ({getReadableTime(Object.values(bounty.detail?.status)[0].updateDue, ksmHeadNumber, 'Due')} left)
+          </span>
+        </span>
     })
   }
 

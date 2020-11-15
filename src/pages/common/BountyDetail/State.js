@@ -60,7 +60,6 @@ const StateWrapper = styled.section`
       flex: 1;
       padding: 16px;
     }
-
 `
 
 export default function State({ bounty, token }) {

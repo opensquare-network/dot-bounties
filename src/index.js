@@ -25,12 +25,12 @@ const render = () => {
   loading.parentNode.removeChild(loading);
 
   ReactDOM.render(
-    <React.StrictMode>
+    <React.Fragment>
       <GlobalStyle />
       <Provider store={store}>
         <App />
       </Provider>
-    </React.StrictMode>,
+    </React.Fragment>,
     document.getElementById('root')
   );
 };
