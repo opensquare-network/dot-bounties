@@ -14,7 +14,7 @@ import { states } from "./constants";
 const ItemsWrapper = styled.div`
   & > ul {
     background: #FFF;
-    border: 1px solid #dbdbdb;
+    border: 1px solid #EEE;
     font-size: 12px;
     
     li {
@@ -23,6 +23,7 @@ const ItemsWrapper = styled.div`
       
       div.name {
         min-width: 200px;
+        color: rgba(29, 37, 60, 0.64);;
         
         i {
           margin-left: 2px;
@@ -31,14 +32,15 @@ const ItemsWrapper = styled.div`
       }
       
       div.value {
+        color: #1D253C;
         span.memo {
           margin-left: 10px;
-          color: rgba(0, 0, 0, 0.6);
+          color: rgba(29, 37, 60, 0.6)
         }
       }
       
       &:not(:last-of-type) {
-        border-bottom: 1px solid #dbdbdb;
+        border-bottom: 1px solid #EEE;
       }
     }
   }

@@ -24,12 +24,20 @@ const Wrapper = styled.div`
   h3 {
     font-size: 16px;
     margin-bottom: 5px;
+    font-weight: 500;
+    color: #1D253C;
+  }
+  
+  p {
+    color: #1D253C;
   }
   
   li {
+    color: #1D253C;
     label {
       display: inline-block;
       min-width: 80px;
+      color: rgba(29, 37, 60, 0.64);
     }
   }
 `

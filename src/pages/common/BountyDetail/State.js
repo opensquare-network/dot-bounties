@@ -6,7 +6,7 @@ import { states } from "./constants";
 
 const StateWrapper = styled.section`
     background: #FFF;
-    border: 1px solid #dbdbdb;
+    border: 1px solid #EEE;
     font-size: 12px;
     display: flex;
     
@@ -15,7 +15,7 @@ const StateWrapper = styled.section`
       flex-direction: column;
       align-items: center;
       padding: 16px 64px;
-      border-right: 1px solid #dbdbdb;
+      border-right: 1px solid #EEE;
       width: 40%;
       
       & > div {
@@ -32,20 +32,32 @@ const StateWrapper = styled.section`
             color: #00C6B9; 
           }
         }
+        
+        &:not(.active) {
+          span {
+            color: rgba(29, 37, 60, 0.24);
+            
+            &.selected {
+              background: #EEE;
+            }
+          }
+        }
       }
       
       span {
         cursor: pointer;
         width: 120px;
-        border: 1px solid #dbdbdb;
-        border-radius: 8px;
+        border: 1px solid rgba(29, 37, 60, 0.24);
+        border-radius: 4px;
         display: inline-flex;
         justify-content: center;
         align-items: center;
         padding: 5px 0;
+        color: #1D253C;
         
         &.selected {
-          background: #EEE;
+          background: #04D2C5;
+          color: #FFFFFF;
         }
       }
       
@@ -53,6 +65,8 @@ const StateWrapper = styled.section`
         display: inline-flex;
         justify-content: center;
         align-items: center;
+        color: rgba(29, 37, 60, 0.64);;
+        margin: 2px 0;
       }
     }
     
@@ -82,7 +96,7 @@ export default function State({ bounty, token }) {
                   index < states.length - 1 ?
                     <Icon
                       className={index < nowIndex ? 'high-light' : ''}
-                      name='long arrow alternate down'
+                      name='triangle down'
                     /> : null
                 }
               </div>
