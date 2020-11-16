@@ -102,7 +102,7 @@ export default function BountyDetail({ bounty, token }) {
         <span>
           Value
           <Popup
-            content='Will be payed to the curator when the bounty resolved.'
+            content='Will be payed to the beneficiary and curator when the bounty resolved. The amount curator get is equal to fee, while the rest will be payed to the beneficiary.'
             on='click'
             trigger={<Icon name="question circle outline" />}
           />
