@@ -51,7 +51,7 @@ function App() {
   useFetchDot()
 
   return (
-    <Router basename={ process.env.NODE_ENV === "production" ? process.env.PUBLIC_URL : "/" }>
+    <Router>
       <Header />
       <Content>
         <Switch>
