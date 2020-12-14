@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { HashRouter as Router, Redirect, Route, Switch, } from 'react-router-dom'
+import { BrowserRouter as Router, Redirect, Route, Switch, } from 'react-router-dom'
 import Header from "./pages/Header";
 import styled from 'styled-components'
 import Ksm from "./pages/Ksm";
@@ -51,7 +51,7 @@ function App() {
   useFetchDot()
 
   return (
-    <Router basename={process.env.PUBLIC_URL}>
+    <Router>
       <Header />
       <Content>
         <Switch>
