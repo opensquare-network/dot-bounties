@@ -83,7 +83,7 @@ export default function Bounty({ bounty, token }) {
         <h3 onClick={() => {
           history.push(`/${token}/${bounty.index}`)
         }}>{bounty.description}</h3>
-        <span>{toPrecision(bounty.detail?.value, precision, false)} KSM</span>
+        <span>{toPrecision(bounty.detail?.value, precision, false)} {isKsm ? 'KSM' : 'DOT'}</span>
       </header>
       <ul>
         <li>
