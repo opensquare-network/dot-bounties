@@ -57,7 +57,7 @@ export default function Header() {
           activeClassName="active"
           to="/dot"
           isActive={(match, location) => {
-            return location.pathname === '/' || (location.pathname || '').startsWith('/dot')
+            return (location.pathname || '').startsWith('/dot')
           }}
         >
           Polkadot

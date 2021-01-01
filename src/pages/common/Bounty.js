@@ -76,7 +76,6 @@ export default function Bounty({ bounty, token }) {
   const precision = useSelector(isKsm ? ksmPrecisionSelector : dotPrecisionSelector)
   const api = isKsm ? getKsmApi() : getDotApi
   const history = useHistory()
-  console.log('bounty', bounty)
 
   return (
     <Wrapper>
