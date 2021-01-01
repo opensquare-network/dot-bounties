@@ -76,12 +76,13 @@ export default function Bounty({ bounty, token }) {
   const precision = useSelector(isKsm ? ksmPrecisionSelector : dotPrecisionSelector)
   const api = isKsm ? getKsmApi() : getDotApi
   const history = useHistory()
+  console.log('bounty', bounty)
 
   return (
     <Wrapper>
       <header>
         <h3 onClick={() => {
-          history.push(`/ksm/${bounty.index}`)
+          history.push(`/${token}/${bounty.index}`)
         }}>{bounty.description}</h3>
         <span>{toPrecision(bounty.detail?.value, precision, false)} KSM</span>
       </header>
@@ -100,7 +101,10 @@ export default function Bounty({ bounty, token }) {
         </li>
         <li>
           <label>Curator:</label>
-          <Identity api={api} addr={bounty.detail.status?.Active.curator} token={token} />
+          {
+            bounty.detail.status?.Active?.curator ?
+              <Identity api={api} addr={bounty.detail.status?.Active?.curator} token={token} /> : null
+          }
         </li>
       </ul>
     </Wrapper>

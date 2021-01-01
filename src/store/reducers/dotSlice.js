@@ -1,6 +1,5 @@
 import { createSelector, createSlice } from '@reduxjs/toolkit'
 import { getDotApi } from "../../services/dotApi";
-import { setKsmBounties } from "./ksmSlice";
 
 const dotSlice = createSlice({
   name: 'dot',
@@ -61,7 +60,7 @@ export const fetchDotBounties = () => async dispatch => {
       return { index, detail }
     })
     bounties.sort((a, b) => b.index - a.index)
-    dispatch(setKsmBounties(bounties))
+    dispatch(setDotBounties(bounties))
 
     dispatch(setDotLoading(false))
   } catch (e) {
@@ -83,7 +82,6 @@ export const fetchDotBountyDescriptions = () => async dispatch => {
     const index = key.args[0].toNumber()
     const description = value.toHuman()
     return { index, description }
-
   })
   dispatch(setDotBountyDescriptions(descriptions))
 }

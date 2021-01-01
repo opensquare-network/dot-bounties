@@ -52,7 +52,14 @@ export default function Header() {
         </NavLink>
       </Nav>
       <Nav>
-        <NavLink exact activeClassName="active" to="/dot">
+        <NavLink
+          exact
+          activeClassName="active"
+          to="/dot"
+          isActive={(match, location) => {
+            return location.pathname === '/' || (location.pathname || '').startsWith('/dot')
+          }}
+        >
           Polkadot
         </NavLink>
       </Nav>

@@ -48,7 +48,7 @@ export default function StateDescription({ state, bounty, token }) {
   const statusIndex = states.findIndex(s => s === bounty.status)
   const targetIndex = states.findIndex(s => s === state)
 
-  const statusParams = Object.values(bounty.detail.status)[0]
+  const statusParams = Object.values(bounty.detail.status)[0] || {}
   const normalizedParams = Object.entries(statusParams).map(([key, value]) => {
     if (['curator', 'beneficiary'].includes(key)) {
       return {
