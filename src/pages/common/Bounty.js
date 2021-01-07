@@ -74,7 +74,7 @@ const Wrapper = styled.section`
 export default function Bounty({ bounty, token }) {
   const isKsm = token === 'ksm'
   const precision = useSelector(isKsm ? ksmPrecisionSelector : dotPrecisionSelector)
-  const api = isKsm ? getKsmApi() : getDotApi
+  const api = isKsm ? getKsmApi() : getDotApi()
   const history = useHistory()
 
   return (
