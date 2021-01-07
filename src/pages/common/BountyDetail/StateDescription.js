@@ -44,7 +44,7 @@ const Wrapper = styled.div`
 
 export default function StateDescription({ state, bounty, token }) {
   const isKsm = token === 'ksm'
-  const api = isKsm ? getKsmApi() : getDotApi
+  const api = isKsm ? getKsmApi() : getDotApi()
   const statusIndex = states.findIndex(s => s === bounty.status)
   const targetIndex = states.findIndex(s => s === state)
 
