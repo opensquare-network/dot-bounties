@@ -31,7 +31,7 @@ export default function Identity({ api, addr, token = 'ksm' }) {
 
   const shortAddr = addr.substring(0, 5) + '...' + addr.substring(addr.length - 5)
   const isKsm = token === 'ksm'
-  const browserHost = `https://${isKsm ? 'kusama' : ''}.subscan.io/account`
+  const browserHost = `https://${isKsm ? 'kusama' : 'polkadot'}.subscan.io/account`
 
   return <Wrapper title={addr}>
     {identity ? (
