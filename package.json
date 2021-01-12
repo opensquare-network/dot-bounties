@@ -2,7 +2,7 @@
   "name": "dot-bounties",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://dotbounties.com",
+  "homepage": "https://www.dotbounties.com",
   "dependencies": {
     "@polkadot/api": "^2.4.1",
     "@reduxjs/toolkit": "^1.4.0",
