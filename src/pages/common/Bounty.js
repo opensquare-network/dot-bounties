@@ -10,6 +10,8 @@ import { dotPrecisionSelector } from "../../store/reducers/dotSlice";
 import { getDotApi } from "../../services/dotApi";
 
 const Wrapper = styled.section`
+  margin-bottom: 8px;
+
   background: #FFFFFF;
   padding: 16px 24px;
 
