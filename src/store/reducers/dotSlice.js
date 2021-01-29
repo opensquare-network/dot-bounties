@@ -87,7 +87,7 @@ export const fetchDotBountyDescriptions = () => async dispatch => {
 }
 
 export const dotHeadNumberSelector = state => state.dot.headNumber
-export const dotPrecisionSelector = state => state.dot.properties?.tokenDecimals || 12
+export const dotPrecisionSelector = state => state.dot.properties?.tokenDecimals[0] || 10
 export const dotBountiesSelector = state => state.dot.bounties
 export const dotDescriptionsSelector = state => state.dot.descriptions
 export const dotLoadingSelector = state => state.dot.dotLoading

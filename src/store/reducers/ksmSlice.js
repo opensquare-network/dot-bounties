@@ -106,6 +106,6 @@ export const ksmNormalizedBountiesSelector = createSelector(
     })
   })
 
-export const ksmPrecisionSelector = state => state.ksm.properties?.tokenDecimals || 12
+export const ksmPrecisionSelector = state => state.ksm.properties?.tokenDecimals[0] || 12
 
 export default ksmSlice.reducer
