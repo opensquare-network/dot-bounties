@@ -69,7 +69,6 @@ export const fetchBounties = () => async dispatch => {
 
 export const fetchKsmProperties = () => async dispatch => {
   const properties = await getKsmApi().rpc.system.properties()
-
   dispatch(setKsmProperties(properties.toJSON()))
 }
 
