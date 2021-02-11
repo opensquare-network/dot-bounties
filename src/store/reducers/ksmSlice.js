@@ -44,7 +44,7 @@ export const {
 
 export const fetchKsmBountyCount = () => async dispatch => {
   const api = getKsmApi()
-  const count = await api.query.treasury.bountyCount()
+  const count = await api.query.bounties.bountyCount()
   dispatch(setBountyCount(count.toNumber()))
 }
 
@@ -52,7 +52,7 @@ export const fetchBounties = () => async dispatch => {
   const api = getKsmApi()
   dispatch(setKsmLoading(true))
   try {
-    const entries = await api.query.treasury.bounties.entries()
+    const entries = await api.query.bounties.bounties.entries()
 
     const bounties = entries.map(([key, value]) => {
       const index = key.args[0].toNumber()
@@ -74,7 +74,7 @@ export const fetchKsmProperties = () => async dispatch => {
 
 export const fetchKsmBountyDescriptions = () => async dispatch => {
   const api = getKsmApi()
-  const entries = await api.query.treasury.bountyDescriptions.entries()
+  const entries = await api.query.bounties.bountyDescriptions.entries()
 
   const descriptions = entries.map(([key, value]) => {
     const index = key.args[0].toNumber()

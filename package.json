@@ -4,7 +4,7 @@
   "private": true,
   "homepage": "https://www.dotbounties.com",
   "dependencies": {
-    "@polkadot/api": "^3.6.4",
+    "@polkadot/api": "^3.8.1",
     "@reduxjs/toolkit": "^1.4.0",
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",
