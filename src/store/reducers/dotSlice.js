@@ -44,7 +44,7 @@ export const {
 
 export const fetchDotBountyCount = () => async dispatch => {
   const api = getDotApi()
-  const count = await api.query.treasury.bountyCount()
+  const count = await api.query.bounties.bountyCount()
   dispatch(setDotBountyCount(count.toNumber()))
 }
 
@@ -52,7 +52,7 @@ export const fetchDotBounties = () => async dispatch => {
   const api = getDotApi()
   dispatch(setDotLoading(true))
   try {
-    const entries = await api.query.treasury.bounties.entries()
+    const entries = await api.query.bounties.bounties.entries()
 
     const bounties = entries.map(([key, value]) => {
       const index = key.args[0].toNumber()
@@ -76,7 +76,7 @@ export const fetchDotProperties = () => async dispatch => {
 
 export const fetchDotBountyDescriptions = () => async dispatch => {
   const api = getDotApi()
-  const entries = await api.query.treasury.bountyDescriptions.entries()
+  const entries = await api.query.bounties.bountyDescriptions.entries()
 
   const descriptions = entries.map(([key, value]) => {
     const index = key.args[0].toNumber()
