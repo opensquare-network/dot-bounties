@@ -3,7 +3,7 @@ import { ApiPromise, WsProvider } from '@polkadot/api'
 let dotApi = null;
 
 export const initDotApi = async () => {
-  const wsProvider = new WsProvider('wss://rpc.polkadot.io');
+  const wsProvider = new WsProvider('wss://polkadot.api.onfinality.io/public-ws');
   dotApi = new ApiPromise({ provider: wsProvider, });
 
   await dotApi.isReady;
